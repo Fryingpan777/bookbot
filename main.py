@@ -4,9 +4,17 @@ def main():
     number_of_words = count_words(text)
     number_of_letters = count_letters(text)
     name_of_book = get_name_of_book(path_to_book)
+
+    number_of_letters_list = [{"char": key, "num": value} for key, value in number_of_letters.items()]
+    number_of_letters_list.sort(reverse=True, key=sort_on)
+
     print(f"Report of the book {name_of_book}")
-    print(f"number of words: {number_of_words}")
-    print(f"number of individual letters: {number_of_letters}")
+    print(f"Number of words found: {number_of_words}")
+
+    for i in number_of_letters_list:
+        print("The symbol", i["char"], "was found", i["num"], "times")
+        #print(f"The symbol '{i["char"]}' was found {i["num"]} times")
+    print("---End of report!---")
 
 def get_text(text):
     with open(text) as f:
@@ -31,7 +39,8 @@ def get_name_of_book(book):
     name = book[6:-4]
     return name
 
-
+def sort_on(dict_list):
+    return dict_list["num"]
 
 
 main()
